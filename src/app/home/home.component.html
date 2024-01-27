@@ -1,0 +1,134 @@
+<div class="card w-100">
+    <div class="card-body">
+        <div ngbNav #nav="ngbNav" class="nav-tabs">
+            <ng-container ngbNavItem>
+                <button ngbNavLink>As User</button>
+                <ng-template ngbNavContent>
+                    <div class="card bg-info mt-5 center text-white col-lg-6">
+                        <div class="card-header text-center">
+                            <h4>User Registration</h4>
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="newUser">
+                                <div class="form-group mb-3 col-sm-12">
+                                    <select class="form-control" formControlName="organizationId" id="organizationId">
+                                        <option value="null" selected>Select an Organization</option>
+                                        <option *ngFor="let org of oldOrganizationsList" value="{{org.id}}">{{org.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="firstName" type="text"
+                                            placeholder="First Name" autocomplete="on" id="firstName">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="lastName" type="text"
+                                            placeholder="Last Name" autocomplete="on" id="lastName">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="phoneNumber" type="text"
+                                            placeholder="Phone Number" autocomplete="on" id="phoneNumber">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="email" type="text"
+                                            placeholder="example@example.com" autocomplete="on" id="email">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="doB" type="datetime-local"
+                                            autocomplete="on" id="doB">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="address" type="text"
+                                            placeholder="Address" autocomplete="on" id="address">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" formControlName="username" type="text"
+                                        placeholder="username" autocomplete="on" id="username">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="password" type="password"
+                                            placeholder="password" autocomplete="off" id="password">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" type="text" placeholder="Confirm Password"
+                                            autocomplete="off" id="confirmPassword" [(ngModel)]="confirmPassword"
+                                            [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn" (click)="createNewUser()">Submit</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+            <ng-container ngbNavItem>
+                <button ngbNavLink>As Organization</button>
+                <ng-template ngbNavContent>
+                    <div class="card bg-info mt-5 center text-white col-lg-6">
+                        <div class="card-header text-center">
+                            <h4>Organization Registration</h4>
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="newOrganization">
+                                <div class="row form-group">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="name" type="text"
+                                            placeholder="Organization Name" autocomplete="on" id="name">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="type" type="text"
+                                            placeholder="Organization Type" autocomplete="on" id="type">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="email" type="text"
+                                            placeholder="example@example.com" autocomplete="on" id="emailAdmin">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="address" type="text"
+                                            placeholder="Address" autocomplete="on" id="addressAdmin">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="username" type="text"
+                                            placeholder="Username" autocomplete="on" id="usernameAdmin">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="contactNumber" type="text"
+                                            placeholder="Contact Number" autocomplete="on" id="contactNumberAdmin">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" formControlName="password" type="text"
+                                            placeholder="Password" autocomplete="on" id="passwordAdmin">
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <input class="form-control" type="text" placeholder="Confirm Password"
+                                            autocomplete="off" id="confirmPasswordAdmin" [(ngModel)]="confirmPassword"
+                                            [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn" (click)="createNewOrg()">Submit</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </div>
+        <div [ngbNavOutlet]="nav"></div>
+    </div>
+</div>

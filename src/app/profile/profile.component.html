@@ -1,0 +1,169 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" [horizontal]="true"
+            class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <button href="#" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button (click)="nav.select(2)" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Contributions</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button (click)="nav.select(1)" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></button>
+                    </li>
+                </ul>
+                <hr>
+                <div ngbDropdown container="body" class="py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+                    <button type="button" class="btn btn-outline-primary btn-sm d-flex align-items-center"
+                        ngbDropdownToggle>{{ user.firstName + " " + user.lastName }}</button>
+                    <div ngbDropdownMenu>
+                        <button ngbDropdownItem>New Project</button>
+                        <button ngbDropdownItem>Profile</button>
+                        <button ngbDropdownItem>Settings</button>
+                        <div class="dropdown-divider"></div>
+                        <button ngbDropdownItem (click)="logout()">SignOut</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col py-3">
+            <nav ngbNav #nav="ngbNav">
+                <ng-container [ngbNavItem]="1">
+                    <!-- <button ngbNavLink>Users</button> -->
+                    <ng-template ngbNavContent>
+                        <div class="d-flex flex-column align-items-center text-center mt-5">
+                            <div class="mt-3">
+                                <h4>{{user.firstName + " " + user.lastName}}</h4>
+                                <button class="btn btn-primary" (click)="open(edit)">Edit</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">First Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.firstName}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Last Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.lastName}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.email}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.phoneNumber}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Birthday</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.doB}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.address}}
+                            </div>
+                        </div>
+                        <hr>
+                    </ng-template>
+                </ng-container>
+                <ng-container [ngbNavItem]="2">
+                    <!-- <button ngbNavLink>Users</button> -->
+                    <ng-template ngbNavContent>
+                        <div class="col-lg-12 mb-4 mb-sm-5 mt-5">
+                            <div>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr class="table-dark">
+                                            <th scope="col">Contribution Name</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Position</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cont of contributions">
+                                            <td>{{cont.contributionsName}}</td>
+                                            <td>{{cont.contributionsAmountPerContributor |
+                                                currency}}</td>
+                                            <td>{{cont.position}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </nav>
+            <div [ngbNavOutlet]="nav" class="ms-4"></div>
+        </div>
+    </div>
+</div>
+<ng-template #edit let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="edits">
+            <label for="fname">
+                <h4>First Name:</h4>
+            </label>
+            <input type="text" class="form-control" formControlName="firstName" id="fname" autocomplete="off">
+            <label for="lname">
+                <h4>Last Name:</h4>
+            </label>
+            <input type="text" class="form-control" formControlName="lastName" id="lname" autocomplete="off">
+            <label for="phone">
+                <h4>Phone Number:</h4>
+            </label>
+            <input type="text" class="form-control" formControlName="phoneNumber" id="phone" autocomplete="off">
+            <label for="email">
+                <h4>Email:</h4>
+            </label>
+            <input type="text" class="form-control" formControlName="email" id="email" autocomplete="off">
+            <label for="dob">
+                <h4>Birthday:</h4>
+            </label>
+            <input type="text" class="form-control" formControlName="doB" id="dob" autocomplete="off">
+            <label for="address">
+                <h4>Address:</h4>
+            </label>
+            <input type="text" class="form-control" formControlName="address" id="address" autocomplete="off">
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()" (click)="userEdit()">Save</button>
+    </div>
+</ng-template>
